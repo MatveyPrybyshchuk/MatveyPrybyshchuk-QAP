@@ -1,0 +1,14 @@
+# Virtual
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Ruff
+.ruff_cache
+
+#Lesson worksheet
+.lesson
