@@ -1,34 +1,71 @@
-"""
-Попроси пользователя ввести 3 числа через пробел (одной строкой),
-преобразуй их в список целых чисел с помощью map и выведи их сумму.
-"""
-
-# numbers = input("Insert input a, b, c using space:")
-
-# list_num = numbers.split(sep=" ")
-
-# int_nums = map(int, list_num)
-# result = sum(int_nums)
-
-# print(result)
+from typing import Generator
+import os
 
 """
-Напиши функцию is_palindrome(word), 
-которая возвращает True, если слово является палиндромом.
+Отсортируйте список словарей 
+[{"name": "Bob", "age": 25}, 
+{"name": "Alice", "age": 22}, 
+{"name": "Charlie", "age": 30}] по полю age.
+"""
+
+info = [{"name": "Bob", "age": 25}, 
+        {"name": "Alice", "age": 22}, 
+        {"name": "Charlie", "age": 30}
+        ]
+
+# info_sorted = sorted(info, key=lambda x: len(x["name"]), reverse=True)
+
+# info_sorted = 
+
+# info.sort(key=lambda x: len(x["name"]), reverse=True)
+# print(info)
+
+
+
+
+"""
+Напишите генератор even_numbers(n), который поочередно выдает четные числа от 0 до n.
+"""
+
+# def even_numbers(n: int) -> Generator:
+#     for a in range(1, n + 1):
+#         if a % 2 == 0:
+#              yield a
+
+# gen = even_numbers(10)
+
+# while True:
+#      try:
+#         print(next(gen))
+#      except StopIteration:
+#         break
+
+
+"""
+Создайте функцию read_file(filename), которая открывает файл. 
+Обработайте FileNotFoundError, а в блоке finally выведите сообщение "Операция завершена".
 """
 
 
-def is_palindrome_1(word: str) -> bool:
-    word = word.lower().strip()
-    return word == word[::-1]
+# def read_file(filename: str) ->None:
+#     if not os.path.exists(filename):
+#         return None
+    
+#     try:
+#         with open(filename, mode = "r") as file:
+#             content = file.read()
 
-def is_palindrome_2(word: str) -> bool:
-    word = word.lower().strip()
-    for i in range(0, len(word) // 2):
-        if word[i] != word[-i - 1]:
-            return False
-    return True
+#         print(content)
+#     except FileNotFoundError:
+#         pass
 
 
-print(is_palindrome_1("Pap "))
-print(is_palindrome_2("Pap"))
+
+# read_file("555.txt")
+
+
+"""
+Напишите lambda-функцию, которая принимает два числа и возвращает большее из них.
+"""
+
+# print((lambda a, b: max(a, b))(5, 3)) 
