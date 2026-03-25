@@ -1,6 +1,6 @@
 from prints.prints_homework import task_visualization
 import os
-import datetime
+from datetime import datetime, timezone
 from typing import Callable
 
 
@@ -34,19 +34,25 @@ task = "Создай файл grades.txt где каждая строка сод
 "Сохрани результат в новый файл grades_with_status.txt."
 task_visualization(2, task)
 
-def check_grades():
+def check_grades() -> None:
     with (open("grades.txt", mode = "r", encoding="utf-8") as src,
           open('grades_with_status.txt', mode = "w", encoding="utf-8") as dst
     ):
         for line in src:
             line = line.strip()
-            _, grade = line.split(",")
-            if int(grade) >= 90:
-                dst.write(f"{line}: отлично\n")
-            elif int(grade) >= 75:
-                dst.write(f"{line}: хорошо\n")
-            else:
-                dst.write(f"{line}\n")
+            if not line:
+                continue
+            try:
+                _, grade_str = line.split(",")
+                grade = int(grade_str.strip())
+                if grade >= 90:
+                    dst.write(f"{line}: отлично\n")
+                elif grade >= 75:
+                    dst.write(f"{line}: удовлетворительно\n")
+                else:
+                    dst.write(f"{line}\n")
+            except Exception as error:
+                print(f"Invalid line format: {line} -> {error} \nValid line format is : 'name,grade'")
 
 check_grades()
 
@@ -58,11 +64,12 @@ task_visualization(3, task)
 
 def age_calculator(birth_date_str: str) -> int:
     day, month, year = map(int, birth_date_str.split("/"))
+    birth = datetime(year, month, day, tzinfo=timezone.utc)
 
-    today = datetime.datetime.now()
-    age = today.year - year
+    today = datetime.now(timezone.utc)
+    age = today.year - birth.year
 
-    if (today.month, today.day) < (month, day):
+    if (today.month, today.day) < (birth.month, birth.day):
         age -= 1
 
     return age
@@ -92,7 +99,7 @@ task = "5. Напиши функцию password_checker(correct_password) кот
 task_visualization(5, task)
 
 
-def password_checker(correct_password: str) -> Callable:
+def password_checker(correct_password: str) -> Callable[[str], bool]:
     def check(password: str) -> bool:
         return password == correct_password
     return check

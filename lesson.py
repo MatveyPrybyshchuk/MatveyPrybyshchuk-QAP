@@ -8,10 +8,10 @@ import os
 {"name": "Charlie", "age": 30}] по полю age.
 """
 
-info = [{"name": "Bob", "age": 25}, 
-        {"name": "Alice", "age": 22}, 
-        {"name": "Charlie", "age": 30}
-        ]
+# info = [{"name": "Bob", "age": 25}, 
+#         {"name": "Alice", "age": 22}, 
+#         {"name": "Charlie", "age": 30}
+#         ]
 
 # info_sorted = sorted(info, key=lambda x: len(x["name"]), reverse=True)
 

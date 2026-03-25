@@ -1,15 +1,15 @@
 
-def read_lines(filename) -> list[str]:
+def read_lines(filename: str) -> list[str]:
     with open(filename) as file:
         return file.readlines()
 
 
-def write_lines(filename, lines) -> None:
-    with open(filename, mode="r") as file:
+def write_lines(filename: str, lines: str) -> None:
+    with open(filename, mode="w") as file:
         file.write(lines)
 
 
-def count_words(filename) -> dict:
+def count_words(filename: str) -> dict:
     result = {}
     with open(filename, mode="r") as file:
         for line in file:
