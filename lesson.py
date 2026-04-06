@@ -1,4 +1,4 @@
-from typing import Generator, Callable
+from typing import Generator, Callable, Literal
 import os
 
 """
@@ -133,17 +133,204 @@ import os
 Напишите декоратор @validate_positive, который проверяет, что все аргументы функции — положительные числа. Если нет — бросает ValueError с понятным сообщением.
 """
 
-def validate_positive(func):
-    def wrapper(*args, **kwargs):
-        result = func(*args, **kwargs)
-        print(f"колличество {len(args) + len(kwargs)}")
+# def validate_positive(func):
+#     def wrapper(*args, **kwargs):
+#         result = func(*args, **kwargs)
+#         print(f"колличество {len(args) + len(kwargs)}")
 
-        return result
-    return wrapper
+#         return result
+#     return wrapper
 
-@validate_positive
-def hello(name1, name2) -> str:
-    return f"Hello {name1} and {name2}"
+# @validate_positive
+# def hello(name1, name2) -> str:
+#     return f"Hello {name1} and {name2}"
 
 
-print(hello("Matvey", "Mat"))
+# print(hello("Matvey", "Mat"))
+
+
+"""
+Создай класс BankAccount с приватным атрибутом __balance. Добавь методы deposit(amount), withdraw(amount) и get_balance(). Реализуй проверку: нельзя снять больше, чем есть на счету.
+"""
+
+# from decimal import Decimal
+
+# class MinusBalance(Exception):
+#     pass
+
+
+# class BankAccount:
+#     def __init__(self, balance: Decimal = Decimal(0)) -> None:
+#        self._balance = balance
+    
+#     def deposit(self, amount: Decimal) -> Decimal:
+#         self._balance += amount
+        
+#         return self._balance
+
+#     def withdraw(self, amount: Decimal) -> Decimal:
+#         if amount > self._balance:
+#             raise MinusBalance("Недостаточно средств") 
+            
+#         self._balance -= amount
+
+#         return self._balance
+
+#     def get_balance(self) -> Decimal:
+#         return self._balance
+    
+# obj = BankAccount()
+# obj.deposit(Decimal("5000"))
+# obj.withdraw(Decimal("1000.15"))
+# print(obj.get_balance())
+
+
+
+"""
+Создай класс Car с атрибутами brand и speed. 
+Добавь метод accelerate(amount), увеличивающий скорость, и brake(amount), уменьшающий (не ниже 0). 
+Переопредели метод __str__, чтобы print(car) выводил "Car: Toyota, Speed: 60".
+"""
+
+# from decimal import Decimal
+# from abc import ABC, abstractmethod
+
+# class AbcCar(ABC):
+
+#     @abstractmethod
+#     def accelerate(self, amount: int) -> int:
+#         raise NotImplementedError
+    
+#     @abstractmethod
+#     def brake(self, amount: int) -> int:
+#         raise NotImplementedError
+
+    
+# class Car(AbcCar):
+#     def __init__(self, brand: str) -> None:
+#         self.brand = brand
+#         self.speed = 0
+
+#     def accelerate(self, amount) -> int:
+#         self.speed += amount
+
+#         return self.speed
+    
+#     def brake(self, amount) -> int:
+        
+#         self.speed -= amount
+#         if self.speed < 0:
+#             self.speed = 0
+
+#         return self.speed
+    
+
+#     def __str__(self) -> str:
+#         return f"Car: {self.brand}, Speed: {self.speed}"
+
+
+
+# toyota = Car("Toyota")
+# toyota.accelerate(100)
+# toyota.brake(60)
+
+# print(str(toyota))
+
+
+"""
+Используя @dataclass, создай класс Product с полями name: str, price: Decimal, quantity: int = 0.
+Создай несколько обьектов, сравни их через ==, выведи через print и repr.
+Добавь метод total_cost(), возвращающий price * quantity
+"""
+
+# from dataclasses import dataclass
+# from decimal import Decimal
+
+# @dataclass
+# class Product:
+#     name: str
+#     price: Decimal
+#     quantity: int = 0
+
+#     def __repr__(self) -> str:
+#         return f"{self.name}, {self.price}, {self.quantity}"
+    
+#     def __str__(self)-> str:
+#         return "class product"
+    
+#     @property
+#     def total_cost(self) -> Decimal:
+#         return self.price * self.quantity
+
+
+# p1 = Product("tv", Decimal("500.2"))
+# p2 = Product("phone", Decimal("100"), 10)
+# p3 = Product("tv", Decimal("500.2"))
+
+# # print(p1 == p3)
+
+# # print(repr(p2))
+# # print(p2)
+
+# print(p2.total_cost)
+
+
+"""
+Создай иерархию с множественным наследованием: классы Walker с методом move() -> "Иду пешком",
+Driver с методом move() -> @Еду на машине" и Commuter(Waler, Driver). Выведи MRO, обьясни порядок 
+поиска метода. добавь свой move() в Commuter, который вызывает оба родительских черех super().
+"""
+
+# class Walker:
+#     def move(self) -> str:
+#         return "Иду пешком"
+
+# class Driver:
+#     def move(self) -> str:
+#         return "Еду на машине"
+    
+# class Commuter(Walker, Driver):
+#     def move(self) -> str:
+#         res1 = super(Walker, self).move()
+#         res2 = super(Driver, self).move()
+#         return res1 + " " + res2
+    
+
+# com = Commuter()
+
+# print(com.move())
+# print(Commuter.mro())
+
+
+
+"""
+Реализай класс Matrix (матрица NxM) с магическими методами __add__ (сложение матриц), __mull__
+(умножение матриц), __str__
+(красивый вывод строк), __eq__ (сравнение), __getitem__(доступ по индексу m[i][j]).
+"""
+
+class Matrix:
+    def __init__(self, N: int) -> None:
+        self.N = N
+
+    def __add__(self, other: int) -> int:
+        return self.N + other
+    
+    def __mul__(self, other: int) -> int:
+        return self.N * other
+    
+    def __str__(self) -> str:
+        return f"Num N = {self.N}"
+    
+    def __eq__(self, other: int) -> bool:
+        return self.N == other
+    
+    def __getitem__(self, other: int) -> Literal[100]:
+        return 100
+    
+mat = Matrix(14)
+print(mat + 10)
+print(mat * 2)
+print(mat)
+print(mat == 2)
+print(mat[00])
